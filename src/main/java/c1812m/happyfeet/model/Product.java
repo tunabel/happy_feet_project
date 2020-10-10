@@ -16,9 +16,6 @@ public class Product {
     @Id
     private int id;
 
-    @Column(name = "brand_id", insertable = false, updatable = false)
-    private Integer brandId;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "brand_id")
     private Brand brand;
@@ -28,10 +25,10 @@ public class Product {
 
     private String name;
 
-    @Column(name = "desc")
+    @Column
     private String desc;
 
-    private Double price;
+    private double price;
 
     @Column(name = "create_date")
     private Date createDate;

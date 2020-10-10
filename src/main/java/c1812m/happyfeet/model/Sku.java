@@ -16,9 +16,6 @@ public class Sku {
     @Id
     private int id;
 
-    @Column(name = "product_id", insertable = false, updatable = false)
-    private Integer productId;
-
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
     private Product product;
@@ -26,7 +23,7 @@ public class Sku {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "sku")
     private List<OrderSku> orderSkuList = new ArrayList<>();
 
-    private String size;
+    private int size;
 
     @Column(name = "create_date")
     private Date createDate;

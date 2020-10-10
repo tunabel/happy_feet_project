@@ -17,7 +17,7 @@ public class Brand {
     private int id;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "brand")
-    private List<Product> listProducts = new ArrayList<>();
+    private List<Product> productList = new ArrayList<>();
 
     @Column
     private String name;

@@ -18,22 +18,22 @@ public class User {
     private String username;
 
     @Column
+    private String password;
+
+    @Column
     private String email;
 
     @Column
     private int gender;
 
     @Column
+    private String phone;
+
+    @Column
     private String address;
 
     @Column
     private String fullname;
-
-    @Column
-    private String password;
-
-    @Column
-    private String phone;
 
     @Column(name = "create_date")
     private Date createDate;
