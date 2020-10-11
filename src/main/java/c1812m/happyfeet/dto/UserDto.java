@@ -1,46 +1,20 @@
-package c1812m.happyfeet.model;
+package c1812m.happyfeet.dto;
 
 import lombok.Data;
 
-import javax.persistence.*;
 import java.util.Date;
 
 @Data
-@Entity
-public class User {
-
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "user_id")
-    @Id
+public class UserDto {
     private int id;
-
-    @Column
     private String username;
-
-    @Column
     private String password;
-
-    @Column
     private String email;
-
-    @Column
     private int gender;
-
-    @Column
     private String phone;
-
-    @Column
     private String address;
-
-    @Column
     private String fullname;
-
-    @Column(name = "create_date")
     private Date createDate;
-
-    @Column
     int status;
-
-    @Transient
     private String passwordRaw;
 }

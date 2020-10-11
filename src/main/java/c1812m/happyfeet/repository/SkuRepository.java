@@ -1,8 +1,6 @@
 package c1812m.happyfeet.repository;
 
 import c1812m.happyfeet.model.Sku;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -14,9 +12,9 @@ public interface SkuRepository extends JpaRepository<Sku, Integer> {
 
     @Query("SELECT s FROM Sku s")
     List<Sku> getSkuList();
-
-    @Query("SELECT s FROM Sku s WHERE (:search IS NULL OR UPPER(s.name) LIKE CONCAT('%',UPPER(:search),'%'))")
-    Page<Sku> getSkuPageWithSearch(Pageable pageRequest, @Param("search") String search);
+//
+//    @Query("SELECT s FROM Sku s WHERE (:search IS NULL OR UPPER(s.name) LIKE CONCAT('%',UPPER(:search),'%'))")
+//    Page<Sku> getSkuPageWithSearch(Pageable pageRequest, @Param("search") String search);
 
     @Query(value = "SELECT * FROM dbo_product_sku s " +
             "WHERE s.sku_id = :skuId AND s.sku_id NOT IN " +

@@ -33,4 +33,7 @@ public class Product {
     @Column(name = "create_date")
     private Date createDate;
 
+    @Column
+    private int status;
+
 }

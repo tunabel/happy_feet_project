@@ -4,7 +4,6 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Data
@@ -25,6 +24,6 @@ public class Sku {
 
     private int size;
 
-    @Column(name = "create_date")
-    private Date createDate;
+    @Column
+    private int status;
 }

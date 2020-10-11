@@ -41,5 +41,8 @@ public class Order {
     private Date createDate;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "order")
-    private List<OrderSku> orderSkuList = new ArrayList<>();
+    private final List<OrderSku> orderSkuList = new ArrayList<>();
+
+    @Column
+    private int status;
 }

@@ -28,4 +28,5 @@ public class Role {
             inverseJoinColumns = {@JoinColumn(name = "user_id")})
     private Set<User> listRole = new HashSet<>();
 
+
 }

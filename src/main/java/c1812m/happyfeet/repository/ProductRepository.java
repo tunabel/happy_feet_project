@@ -29,6 +29,4 @@ public interface ProductRepository extends JpaRepository<Product,Integer> {
     @Query("SELECT p FROM Product p WHERE (:search IS NULL OR UPPER(p.name) LIKE CONCAT('%',UPPER(:search),'%'))")
     Page<Product> findAllWithSearch(Pageable pageable,  @Param("search") String search);
 
-    @Query("SELECT p FROM Product p WHERE UPPER(p.name) = UPPER(:productName) AND p.brandId = :brandId")
-    Product findOneByNameAndBrandId(@Param("productName") String productName, @Param("brandId") int brandId);
 }
