@@ -1,7 +1,8 @@
 package c1812m.happyfeet.controller;
 
-import c1812m.happyfeet.commons.CustomUtils;
 import c1812m.happyfeet.commons.mapper.BrandMapper;
+import c1812m.happyfeet.commons.response.CustomUtils;
+import c1812m.happyfeet.commons.response.DataApiResult;
 import c1812m.happyfeet.dto.BrandDto;
 import c1812m.happyfeet.model.Brand;
 import c1812m.happyfeet.service.BrandService;
@@ -29,15 +30,11 @@ public class BrandController {
     CustomUtils utils;
 
     @PostMapping(value = "/")
-    public ResponseEntity<Map<String, Object>> create(@NotNull @RequestBody BrandDto dto) {
+    public DataApiResult create(@NotNull @RequestBody BrandDto dto) {
 
         Brand brand = brandService.save(dto);
 
-        if (brand != null) {
-            return utils.createResponse(brand, HttpStatus.CREATED);
-        } else {
-            return utils.createResponse(null, HttpStatus.BAD_REQUEST);
-        }
+        return new DataApiResult(brand);
     }
 
 

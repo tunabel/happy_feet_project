@@ -1,4 +1,4 @@
-package c1812m.happyfeet.commons;
+package c1812m.happyfeet.commons.response;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

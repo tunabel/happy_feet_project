@@ -4,7 +4,7 @@ import c1812m.happyfeet.dto.UserDto;
 import c1812m.happyfeet.model.User;
 import org.mapstruct.Mapper;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface UserMapper {
     UserDto toDto(User entity);
     User toEntity(UserDto dto);
