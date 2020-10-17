@@ -1,5 +1,6 @@
 package c1812m.happyfeet.service;
 
+import c1812m.happyfeet.commons.exception.CustomNotFoundException;
 import c1812m.happyfeet.commons.mapper.ProductMapper;
 import c1812m.happyfeet.dto.ProductDto;
 import c1812m.happyfeet.model.Product;
@@ -58,6 +59,22 @@ public class ProductService {
             return productRepository.save(product);
         } else {
             return null;
+        }
+    }
+
+    public List<Product> findAllActive() {
+
+        return productRepository.findAllByStatus(1);
+    }
+
+    public Product findActiveById(int productId) {
+
+        Optional<Product> productOptional = productRepository.findByIdAndStatus(productId, 1);
+
+        if (productOptional.isPresent()) {
+            return productOptional.get();
+        } else {
+            throw new CustomNotFoundException("Product Id doesn't exist");
         }
     }
 }

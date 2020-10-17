@@ -2,11 +2,15 @@ package c1812m.happyfeet.controller;
 
 import c1812m.happyfeet.commons.mapper.BrandMapper;
 import c1812m.happyfeet.commons.response.CustomUtils;
-import c1812m.happyfeet.commons.response.DataApiResult;
+import c1812m.happyfeet.commons.swagger.SwaggerConfig;
 import c1812m.happyfeet.dto.BrandDto;
 import c1812m.happyfeet.model.Brand;
 import c1812m.happyfeet.service.BrandService;
 import com.sun.istack.NotNull;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +22,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(path = "/api/brand")
+@Api(value = "happyfeet", tags = {SwaggerConfig.brandTag})
 public class BrandController {
 
     @Autowired
@@ -30,11 +35,11 @@ public class BrandController {
     CustomUtils utils;
 
     @PostMapping(value = "/")
-    public DataApiResult create(@NotNull @RequestBody BrandDto dto) {
+    public ResponseEntity create(@NotNull @RequestBody BrandDto dto) {
 
         Brand brand = brandService.save(dto);
 
-        return new DataApiResult(brand);
+        return new ResponseEntity(brand, HttpStatus.OK);
     }
 
 
@@ -49,11 +54,20 @@ public class BrandController {
         }
     }
 
+    @ApiOperation(value = "View a list of available brands", response = Iterable.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully retrieved list"),
+            @ApiResponse(code = 401, message = "You are not authorized to view the resource"),
+            @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
+            @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
+    }
+    )
     @GetMapping(value = "/")
     public ResponseEntity<Map<String, Object>> getAll() {
+        List<Brand> brandList = brandService.findAll();
 
-        List<BrandDto> brandDtoList = brandService
-                .findAll().stream().map(brand -> brandMapper.toDto(brand))
+        List<BrandDto> brandDtoList = brandList.stream()
+                .map(brand -> brandMapper.toDto(brand))
                 .collect(Collectors.toList());
 
         return utils.createResponse(brandDtoList, HttpStatus.OK);

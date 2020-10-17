@@ -9,9 +9,9 @@ import java.util.List;
 
 public interface RoleRepository extends JpaRepository<Role, Integer> {
 
-    @Query(value = "SELECT * FROM dbo_role r " +
-            "LEFT JOIN dbo_user_role ur " +
-            "ON r.role_id = ur.role_id " +
-            "WHERE ur.user_id = :userId ", nativeQuery = true)
-    List<Role> findAllByUserId(@Param("userId") int userId);
+//    @Query(value = "SELECT * FROM dbo_role r " +
+//            "LEFT JOIN dbo_user_role ur " +
+//            "ON r.role_id = ur.role_id " +
+//            "WHERE ur.user_id = :userId ", nativeQuery = true)
+//    List<Role> findAllByUserId(@Param("userId") int userId);
 }
