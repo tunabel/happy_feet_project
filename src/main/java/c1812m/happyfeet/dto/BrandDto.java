@@ -10,8 +10,8 @@ import java.util.List;
 @Setter
 public class BrandDto {
     int id;
+    List<ProductDto> productDtoList;
     String name;
     String desc;
     Date createDate;
-    List<ProductDto> productDtoList;
 }

@@ -10,11 +10,5 @@ import java.util.Map;
 @Component
 public class CustomUtils {
 
-    public ResponseEntity<Map<String, Object>> createResponse(Object data, HttpStatus status) {
-        Map<String, Object> result = new HashMap<>();
-        result.put("data", data);
-
-        return new ResponseEntity<>(result, status);
-    }
 
 }

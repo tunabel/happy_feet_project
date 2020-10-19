@@ -10,10 +10,10 @@ import java.util.Date;
 @Setter
 public class ProductDto {
     int id;
-    BrandDto brandDTO;
     String name;
     String desc;
     double price;
     Date createDate;
+    BrandDto brandDto;
     int status;
 }

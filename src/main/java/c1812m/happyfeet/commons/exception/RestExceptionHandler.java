@@ -13,4 +13,14 @@ public class RestExceptionHandler {
         return new ResponseEntity(HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(ItemDuplicationException.class)
+    public ResponseEntity ItemDuplicationExceptionHandler(ItemDuplicationException exception) {
+        return new ResponseEntity(HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(CustomBadRequestException.class)
+    public ResponseEntity CustomBadRequestExceptionHandler(CustomBadRequestException exception) {
+        return new ResponseEntity(HttpStatus.BAD_REQUEST);
+    }
+
 }

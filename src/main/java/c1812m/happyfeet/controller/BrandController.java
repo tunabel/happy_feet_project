@@ -1,6 +1,6 @@
 package c1812m.happyfeet.controller;
 
-import c1812m.happyfeet.commons.mapper.BrandMapper;
+import c1812m.happyfeet.commons.mapper.BrandMapperClass;
 import c1812m.happyfeet.commons.response.CustomUtils;
 import c1812m.happyfeet.commons.swagger.SwaggerConfig;
 import c1812m.happyfeet.dto.BrandDto;
@@ -29,32 +29,35 @@ public class BrandController {
     BrandService brandService;
 
     @Autowired
-    BrandMapper brandMapper;
+    BrandMapperClass brandMapper;
 
     @Autowired
     CustomUtils utils;
 
+    @ApiOperation(value = "Create a new brand", response = ResponseEntity.class)
     @PostMapping(value = "/")
     public ResponseEntity create(@NotNull @RequestBody BrandDto dto) {
-
         Brand brand = brandService.save(dto);
 
         return new ResponseEntity(brand, HttpStatus.OK);
     }
 
-
+    @ApiOperation(value = "Find a brand by ID", response = ResponseEntity.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully retrieved brand"),
+            @ApiResponse(code = 401, message = "You are not authorized to view the resource"),
+            @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
+            @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
+    }
+    )
     @GetMapping(value = "/{brandId}")
-    public ResponseEntity<Map<String, Object>> getById(@NotNull @PathVariable int brandId) {
+    public ResponseEntity getById(@NotNull @PathVariable int brandId) {
         Brand brand = brandService.findById(brandId);
 
-        if (brand != null) {
-            return utils.createResponse(brand, HttpStatus.FOUND);
-        } else {
-            return utils.createResponse(brand, HttpStatus.NOT_FOUND);
-        }
+        return new ResponseEntity(brand, HttpStatus.FOUND);
     }
 
-    @ApiOperation(value = "View a list of available brands", response = Iterable.class)
+    @ApiOperation(value = "View a list of available brands")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successfully retrieved list"),
             @ApiResponse(code = 401, message = "You are not authorized to view the resource"),
@@ -63,25 +66,22 @@ public class BrandController {
     }
     )
     @GetMapping(value = "/")
-    public ResponseEntity<Map<String, Object>> getAll() {
+    public ResponseEntity getAll() {
         List<Brand> brandList = brandService.findAll();
 
         List<BrandDto> brandDtoList = brandList.stream()
                 .map(brand -> brandMapper.toDto(brand))
                 .collect(Collectors.toList());
 
-        return utils.createResponse(brandDtoList, HttpStatus.OK);
+        return new ResponseEntity(brandDtoList, HttpStatus.OK);
     }
 
+    @ApiOperation(value = "Update a Brand")
     @PutMapping(value = "/{brandId}")
     public ResponseEntity<Map<String, Object>> update(@NotNull @RequestBody BrandDto dto, @PathVariable int brandId) {
 
         Brand updatedBrand = brandService.update(dto, brandId);
 
-        if (updatedBrand != null) {
-            return utils.createResponse(updatedBrand, HttpStatus.OK);
-        } else {
-            return utils.createResponse(updatedBrand, HttpStatus.BAD_REQUEST);
-        }
+        return new ResponseEntity(updatedBrand, HttpStatus.OK);
     }
 }

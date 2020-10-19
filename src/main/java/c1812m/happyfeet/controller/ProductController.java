@@ -36,22 +36,22 @@ public class ProductController {
 
     //User - get all
     @GetMapping(value = "/")
-    public ResponseEntity<Map<String, Object>> getAll() {
+    public ResponseEntity getAll() {
 
         List<Product> productList = productService.findAllActive();
 
-        return utils.createResponse(productList, HttpStatus.OK);
+        return new ResponseEntity(productList, HttpStatus.OK);
     }
 
     //User - get one (details)
     @GetMapping(value = "/{productId}")
-    public ResponseEntity<Map<String, Object>> getOne(@PathVariable int productId) {
+    public ResponseEntity getOne(@PathVariable int productId) {
 
         Product foundProduct = productService.findActiveById(productId);
 
         ProductDto result = productMapper.toDto(foundProduct);
 
-        return utils.createResponse(result, HttpStatus.FOUND);
+        return new ResponseEntity(result, HttpStatus.FOUND);
     }
 
     //User - get all with search and sort
